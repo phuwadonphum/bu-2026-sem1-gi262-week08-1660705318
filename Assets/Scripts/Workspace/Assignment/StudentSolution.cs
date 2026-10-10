@@ -5,8 +5,6 @@ namespace Assignment
 {
     public class StudentSolution
     {
-        #region Lecture
-
         public int LCT01_RecursiveFactorial(int n)
         {
             return Factorial(n);
@@ -14,11 +12,11 @@ namespace Assignment
 
         private int Factorial(int n)
         {
-            // base case
-
-            // recursive case
-
-            return -1;
+            if (n <= 1)
+            {
+                return 1;
+            }
+            return n * Factorial(n - 1);
         }
 
         public int LCT02_RecursiveFibonacci(int n)
@@ -28,11 +26,11 @@ namespace Assignment
 
         private int Fibonacci(int n)
         {
-            // base case
-
-            // recursive case
-
-            return -1;
+            if (n <= 1)
+            {
+                return n;
+            }
+            return Fibonacci(n - 1) + Fibonacci(n - 2);
         }
 
         public int LCT03_RecursiveSumOfOneToN(int n)
@@ -42,11 +40,11 @@ namespace Assignment
 
         private int SumOfOneToN(int n)
         {
-            // base case
-
-            // recursive case
-
-            return -1;
+            if (n <= 0)
+            {
+                return 0;
+            }
+            return n + SumOfOneToN(n - 1);
         }
 
         public int LCT04_RecursiveSumOfNumbers(int[] numbers)
@@ -56,58 +54,83 @@ namespace Assignment
 
         private int SumOfNumbers(int[] numbers, int index)
         {
-            // base case
-
-            // recursive case
-
-            return -1;
+            if (numbers == null || index >= numbers.Length)
+            {
+                return 0;
+            }
+            return numbers[index] + SumOfNumbers(numbers, index + 1);
         }
-
-        #endregion
-
-        #region Assignment
 
         public int ASN01_RecursivePower(int baseNum, int exponent)
         {
-            return Power(baseNum, exponent);
-        }
-
-        private int Power(int baseNum, int exponent)
-        {
-            return -1;
+            if (exponent == 0)
+            {
+                return 1;
+            }
+            return baseNum * ASN01_RecursivePower(baseNum, exponent - 1);
         }
 
         public bool ASN02_IsPalindrome(string str)
         {
-            return IsPalindrome(str, 0, str.Length - 1);
+            if (str == null)
+            {
+                return false;
+            }
+            return IsPalindromeHelper(str, 0, str.Length - 1);
         }
 
-        private bool IsPalindrome(string str, int start, int end)
+        private bool IsPalindromeHelper(string str, int start, int end)
         {
-            return false;
+            if (start >= end)
+            {
+                return true;
+            }
+            if (str[start] != str[end])
+            {
+                return false;
+            }
+            return IsPalindromeHelper(str, start + 1, end - 1);
         }
 
         public int ASN03_RecursiveGCD(int a, int b)
         {
-            return GCD(a, b);
-        }
-
-        private int GCD(int a, int b)
-        {
-            return -1;
+            if (b == 0)
+            {
+                return a;
+            }
+            return ASN03_RecursiveGCD(b, a % b);
         }
 
         public int ASN04_RecursiveBinarySearch(int[] arr, int target)
         {
-            return BinarySearch(arr, target, 0, arr.Length - 1);
+            if (arr == null)
+            {
+                return -1;
+            }
+            return RecursiveBinarySearchHelper(arr, target, 0, arr.Length - 1);
         }
 
-        private int BinarySearch(int[] arr, int target, int low, int high)
+        private int RecursiveBinarySearchHelper(int[] arr, int target, int low, int high)
         {
-            return -1;
+            if (low > high)
+            {
+                return -1;
+            }
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target)
+            {
+                return mid;
+            }
+            if (arr[mid] > target)
+            {
+                return RecursiveBinarySearchHelper(arr, target, low, mid - 1);
+            }
+            return RecursiveBinarySearchHelper(arr, target, mid + 1, high);
         }
 
-        #endregion
+
+
+
 
     }
 }
